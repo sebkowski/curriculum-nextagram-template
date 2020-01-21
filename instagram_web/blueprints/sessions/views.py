@@ -30,7 +30,9 @@ def create():
     
 
     if result:
+        flash('logged in')
         session['user_id']=user_info.id
+        # login_user(user_info)
         return redirect('/')
     else:
         flash('Wrong password')
