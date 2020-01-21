@@ -9,6 +9,19 @@ Homepage
 
 {% block content %}
 <h1>Homepage</h1>
-<a href="{{ url_for('users.new') }}" class="btn btn-secondary">Signup here</a>
-<a href="{{ url_for('sessions.new') }}" class="btn btn-secondary">Sign In here</a>
+
+
+{% if current_user.is_authenticated %}
+    <Form action="{{ url_for('sessions.destroy')}}" method='POST'>
+      <input type="hidden" name="csrf_token" value='{{csrf_token()}}'/>
+      <button type="submit" class="btn btn-danger">Signout</button>
+      
+    </Form>
+{% else %}
+    
+      <a href="{{ url_for('sessions.new') }}" class="btn btn-primary">Signin</a>
+    
+      <a href="{{ url_for('users.new') }}" class="btn btn-secondary">Signup here</a>
+    
+{% endif %}
 {% endblock %}

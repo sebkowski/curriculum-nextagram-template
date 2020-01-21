@@ -4,10 +4,13 @@ from flask_wtf.csrf import CSRFProtect
 from models import *
 from models.user import User
 from werkzeug.security import generate_password_hash
+from flask_login import LoginManager
 
 users_blueprint = Blueprint('users',
                             __name__,
                             template_folder='templates')
+
+
 
 # GET /users/new
 @users_blueprint.route('/new', methods=['GET'])
@@ -54,3 +57,5 @@ def edit(id):
 @users_blueprint.route('/<id>', methods=['POST'])
 def update(id):
     pass
+
+

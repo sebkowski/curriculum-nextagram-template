@@ -1,10 +1,12 @@
 from models.base_model import BaseModel
 from werkzeug.security import generate_password_hash
+from flask_login import UserMixin
 import peewee as pw
 import re 
 
 
-class User(BaseModel):
+
+class User(UserMixin, BaseModel):
     name = pw.CharField(unique=False)
     password = pw.CharField(unique=False)
     username = pw.CharField(unique=True)
@@ -24,10 +26,10 @@ class User(BaseModel):
             self.errors.append('Password has to be at least 6 characters')
 
         pattern= '[A-Z]+[a-z]+$'
-        if re.search(pattern, self.password)==False:
+        if re.search(pattern, self.password) is None:
             self.errors.append('Password must have 1 of each upper, lower and special charatcer')
         email_pattern= r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
-        if re.search(email_pattern, self.email)==False:
+        if re.search(email_pattern, self.email) is None:
             self.errors.append('Please enter a valid email')
         else: 
             self.password=generate_password_hash(self.password)

@@ -3,7 +3,9 @@ from peewee import IntegrityError
 from flask_wtf.csrf import CSRFProtect
 from models import *
 from models.user import User
+from flask_login import login_user, logout_user,login_required
 from werkzeug.security import generate_password_hash, check_password_hash
+
 
 sessions_blueprint = Blueprint('sessions',
                             __name__,
@@ -15,6 +17,14 @@ sessions_blueprint = Blueprint('sessions',
 @sessions_blueprint.route('/login', methods=['GET'])
 def new():
     return render_template('sessions/new.html')
+
+@sessions_blueprint.route('/delete',methods=['POST'])
+@login_required
+def destroy():
+    logout_user()
+    return redirect(url_for('sessions.new'))
+
+
 
 # POST /sessions/
 @sessions_blueprint.route('/', methods=['POST'])
