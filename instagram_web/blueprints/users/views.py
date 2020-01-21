@@ -1,5 +1,6 @@
 from flask import Blueprint, Flask, render_template, request, redirect, url_for, flash, session
 from peewee import IntegrityError
+from flask_wtf.csrf import CSRFProtect
 from models import *
 from models.user import User
 from werkzeug.security import generate_password_hash
@@ -17,9 +18,10 @@ def new():
 @users_blueprint.route('/', methods=['POST'])
 def create():
     name = request.form.get('user_name')
-    password = generate_password_hash(request.form.get('user_password'))
+    email = request.form.get('user_email')
+    password = request.form.get('user_password')
     username = request.form.get('user_username')
-    s = User(name=name, password=password, username=username)
+    s = User(name=name, email=email, password=password, username=username)
     # try:
     if s.save():
         flash('user created')

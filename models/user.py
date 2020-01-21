@@ -1,11 +1,14 @@
 from models.base_model import BaseModel
+from werkzeug.security import generate_password_hash
 import peewee as pw
+import re 
 
 
 class User(BaseModel):
     name = pw.CharField(unique=False)
     password = pw.CharField(unique=False)
     username = pw.CharField(unique=True)
+    email = pw.CharField(unique=True)
 
     def validate(self):
         duplicate_username = User.get_or_none(User.username == self.username)
@@ -16,3 +19,15 @@ class User(BaseModel):
 
         if duplicate_username:
             self.errors.append('Username has been taken')
+
+        if len(self.password) < 6 :
+            self.errors.append('Password has to be at least 6 characters')
+
+        pattern= '[A-Z]+[a-z]+$'
+        if re.search(pattern, self.password)==False:
+            self.errors.append('Password must have 1 of each upper, lower and special charatcer')
+        email_pattern= r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+        if re.search(email_pattern, self.email)==False:
+            self.errors.append('Please enter a valid email')
+        else: 
+            self.password=generate_password_hash(self.password)
