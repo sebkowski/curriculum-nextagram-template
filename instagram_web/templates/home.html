@@ -15,8 +15,9 @@ Homepage
     <Form action="{{ url_for('sessions.destroy')}}" method='POST'>
       <input type="hidden" name="csrf_token" value='{{csrf_token()}}'/>
       <button type="submit" class="btn btn-danger">Signout</button>
-      
     </Form>
+    <a href="{{ url_for('users.edit', id=current_user.id)}}" class="btn btn-primary">Edit</a>
+    
 {% else %}
     
       <a href="{{ url_for('sessions.new') }}" class="btn btn-primary">Signin</a>

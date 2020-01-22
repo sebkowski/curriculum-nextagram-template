@@ -11,9 +11,10 @@ assets.register(bundles)
 app.register_blueprint(sessions_blueprint)
 app.register_blueprint(users_blueprint, url_prefix="/users")
 
-@app.errorhandler(500)
+
+@app.errorhandler(404)
 def internal_server_error(e):
-    return render_template('500.html'), 500
+    return render_template('404.html'), 404
 
 # @login_manager.user_loader
 # def load_user(user_id):

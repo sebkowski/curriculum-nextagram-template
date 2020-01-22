@@ -1,0 +1,10 @@
+{% extends "_layout.html" %}
+{% block title %}
+Error 404
+{% endblock%}
+{% block content%}
+<h1>The page you are trying to visit does not exist. error404 </h1>
+<button  type="submit" class="btn btn-primary">
+<a href="{{ url_for('sessions.new') }}" class="btn btn-primary">Go back to home page</a>
+</button>
+{%endblock%}

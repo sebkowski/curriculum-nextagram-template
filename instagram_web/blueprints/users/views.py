@@ -4,7 +4,7 @@ from flask_wtf.csrf import CSRFProtect
 from models import *
 from models.user import User
 from werkzeug.security import generate_password_hash
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 
 users_blueprint = Blueprint('users',
                             __name__,
@@ -49,13 +49,23 @@ def index():
     return "USERS"
 
 
-@users_blueprint.route('/<id>/edit', methods=['GET'])
-def edit(id):
-    pass
+@users_blueprint.route('/edit', methods=['GET'])
+def edit():
+
+    return render_template('users/edit.html')
 
 
-@users_blueprint.route('/<id>', methods=['POST'])
-def update(id):
-    pass
 
+@users_blueprint.route('/edit', methods=['POST'])
+def update():
+    email = request.form.get('user_email')
+
+    query = User.update(email=email).where(User.id==current_user.id)
+    if query.execute():
+        flash('email updated')
+    else:
+        flash('not updated')
+    return render_template('home.html')
+
+    
 
