@@ -4,7 +4,10 @@ from flask_wtf.csrf import CSRFProtect
 from models import *
 from models.user import User
 from werkzeug.security import generate_password_hash
-from flask_login import LoginManager, current_user
+from werkzeug.utils import secure_filename
+from flask_login import LoginManager, current_user, login_required, login_user
+from instagram_web.util.helpers import *
+# from config import S3_BUCKET
 
 users_blueprint = Blueprint('users',
                             __name__,
@@ -24,12 +27,14 @@ def create():
     email = request.form.get('user_email')
     password = request.form.get('user_password')
     username = request.form.get('user_username')
-    s = User(name=name, email=email, password=password, username=username)
+    profile_image = 'http://sebagram.s3.amazonaws.com/user.png'
+    s = User(name=name, email=email, password=password, username=username, profile_image=profile_image)
     # try:
     if s.save():
         flash('user created')
+        login_user(s)
         # return render_template('/home.html')
-        return redirect(url_for('users.new'))
+        return redirect(url_for('home'))
     else:
         for err in s.errors:
             flash(err)
@@ -63,9 +68,58 @@ def update():
     query = User.update(email=email).where(User.id==current_user.id)
     if query.execute():
         flash('email updated')
+        return render_template('home.html')
     else:
         flash('not updated')
     return render_template('home.html')
 
+@users_blueprint.route('/upload_profile_image', methods=['GET'])
+def profile_image():
+    if current_user.is_active == False:
+        return redirect(url_for('home'))
+    else:
+        return render_template('users/test.html')
+
+
+@users_blueprint.route('/upload_profile_image', methods=['POST'])
+def update_profile_image():
+	# A
+    if "user_file" not in request.files:
+        return "No user_file key in request.files"
+
+	# B
+    file = request.files["user_file"]
+
+	# C.
+    if file.filename == "":
+        return "Please select a file"
+
+	# D.
+    if file and allowed_file(file.filename):
+        file.filename = secure_filename(file.filename)
+        output = upload_file_to_s3(file, S3_BUCKET)
+        user_image_url =  str(output)
+        s=User.update(profile_image=user_image_url).where(User.id==current_user.id)
+        if s.execute():
+            flash('profile image updated')
+            return render_template('home.html')
+        else:
+            flash('profile image not updated')
+            return render_template('home.html')
+    else:
+        return redirect("/")
+
+
+
+
+
+
+
+    
+    # if query.execute():
+    #     flash('profile image updated')
+    # else:
+    #     flash('not updated')
+    # return render_template('home.html')
     
 
