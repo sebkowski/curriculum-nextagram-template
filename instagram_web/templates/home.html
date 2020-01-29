@@ -14,10 +14,13 @@
 {% if current_user.is_authenticated %}
     
     {% for user in users %}
-      <div>
+      <div style="background-color: #C6B9CD; margin-top: 10px">
+        <div>
         <a href="/users/{{user.username}}">{{user.username}}</a>
+        <img src="http://sebagram.s3.amazonaws.com/{{user.profile_image}}" class="rounded-circle img-thumbnail border border-primary"  style="object-fit:cover;width:45px; height:45px" alt="45x45">
+        </div>
         {% for post in user.posts %}
-          <img height="100" src="{{post.full_url()}}" />
+          <img height="100" src="{{post.full_url()}}" style="margin: 5px ; border-radius: 4px;"/>
         {% endfor %}
       </div>
     {% endfor %}
@@ -25,10 +28,13 @@
   
     
 {% else %}
-    <a>here we display logged out feed feed</a>
-      <a href="{{ url_for('sessions.new') }}" class="btn btn-primary">Signin</a>
-    
-      <a href="{{ url_for('users.new') }}" class="btn btn-secondary">Signup here</a>
-    
+  {% for user in users %}
+    <div style="background-color: #C6B9CD; margin-top: 10px">
+      <a href="/users/{{user.username}}">{{user.username}}</a>
+      {% for post in user.posts %}
+        <img height="100" src="{{post.full_url()}}" />
+      {% endfor %}
+    </div>
+{% endfor %}
 {% endif %}
 {% endblock %}
