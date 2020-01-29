@@ -3,8 +3,10 @@
 Error 404
 {% endblock%}
 {% block content%}
-<h1>The page you are trying to visit does not exist. error404 </h1>
+<form class="p-4 border w-50 mx-auto my-4">
+<h3>The page you are trying to visit does not exist. error404 </h3>
 <button  type="submit" class="btn btn-primary">
 <a href="{{ url_for('sessions.new') }}" class="btn btn-primary">Go back to home page</a>
 </button>
+</form>
 {%endblock%}

@@ -16,10 +16,10 @@
     
     
     
-    <a>here we display feed</a>
+    <a>here we display logged in feed feed</a>
     
 {% else %}
-    
+    <a>here we display logged out feed feed</a>
       <a href="{{ url_for('sessions.new') }}" class="btn btn-primary">Signin</a>
     
       <a href="{{ url_for('users.new') }}" class="btn btn-secondary">Signup here</a>
