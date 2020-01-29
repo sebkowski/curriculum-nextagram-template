@@ -10,4 +10,6 @@ class Post(BaseModel):
     image_path=pw.CharField()
     caption=pw.CharField(null=True)
     
+    def full_url(self):
+        return "http://sebagram.s3.amazonaws.com/" + self.image_path
     

@@ -13,10 +13,16 @@
 
 {% if current_user.is_authenticated %}
     
+    {% for user in users %}
+      <div>
+        <a href="/users//{{user.username}}">{{user.username}}</a>
+        {% for post in user.posts %}
+          <img height="100" src="{{post.full_url()}}" />
+        {% endfor %}
+      </div>
+    {% endfor %}
     
-    
-    
-    <a>here we display logged in feed feed</a>
+  
     
 {% else %}
     <a>here we display logged out feed feed</a>
