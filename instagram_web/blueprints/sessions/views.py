@@ -18,7 +18,7 @@ sessions_blueprint = Blueprint('sessions',
 def new():
     return render_template('sessions/new.html')
 
-@sessions_blueprint.route('/delete',methods=['POST'])
+@sessions_blueprint.route('/delete')
 @login_required
 def destroy():
     logout_user()

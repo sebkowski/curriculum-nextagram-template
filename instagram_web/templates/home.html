@@ -1,26 +1,23 @@
 {% extends "_layout.html" %}
 
 {% block title %}
-Homepage
+
 {% endblock %}
 
 {% block header %}
 {% endblock %}
 
 {% block content %}
-<h1>Homepage</h1>
+
 
 
 {% if current_user.is_authenticated %}
     
-    <Form action="{{ url_for('sessions.destroy')}}" method='POST'>
-      <input type="hidden" name="csrf_token" value='{{csrf_token()}}'/>
-      <button type="submit" class="btn btn-danger">Signout</button>
-    </Form>
     
-    <a href="{{ url_for('users.edit', id=current_user.id)}}" class="btn btn-primary">Edit</a>
-    <a>{{current_user.name}}</a>
-    <a><img src="{{current_user.profile_image}}" class="rounded-circle img-thumbnail border border-primary" style="width:45px" alt="45x45"></a>
+    
+    
+    <a>here we display feed</a>
+    
 {% else %}
     
       <a href="{{ url_for('sessions.new') }}" class="btn btn-primary">Signin</a>

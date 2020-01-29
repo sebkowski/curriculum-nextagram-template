@@ -27,7 +27,7 @@ def create():
     email = request.form.get('user_email')
     password = request.form.get('user_password')
     username = request.form.get('user_username')
-    profile_image = 'http://sebagram.s3.amazonaws.com/user.png'
+    profile_image = 'user.png'
     s = User(name=name, email=email, password=password, username=username, profile_image=profile_image)
     # try:
     if s.save():
@@ -98,8 +98,7 @@ def update_profile_image():
     if file and allowed_file(file.filename):
         file.filename = secure_filename(file.filename)
         output = upload_file_to_s3(file, S3_BUCKET)
-        user_image_url =  str(output)
-        s=User.update(profile_image=user_image_url).where(User.id==current_user.id)
+        s=User.update(profile_image=file.filename).where(User.id==current_user.id)
         if s.execute():
             flash('profile image updated')
             return render_template('home.html')
