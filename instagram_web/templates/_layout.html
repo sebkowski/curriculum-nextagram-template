@@ -46,7 +46,9 @@
           <a class="nav-link" href="#">another feature</a>
         </li>
         {% if current_user.is_authenticated %}
-        <img src="http://sebagram.s3.amazonaws.com/user.png" class="fixed-top rounded-circle img-thumbnail border border-primary mx-auto mt-2" style="width:130px">
+        <a href="{{ url_for('posts.new')}}">
+        <img src="http://sebagram.s3.amazonaws.com/user.png" class="fixed-top rounded-circle img-thumbnail border border-primary mx-auto mt-2" style="width:130px" >
+        </a>
         <li class="nav-item dropdown" >
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
             {{current_user.username}}

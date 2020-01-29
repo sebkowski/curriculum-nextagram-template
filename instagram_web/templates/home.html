@@ -15,7 +15,7 @@
     
     {% for user in users %}
       <div>
-        <a href="/users//{{user.username}}">{{user.username}}</a>
+        <a href="/users/{{user.username}}">{{user.username}}</a>
         {% for post in user.posts %}
           <img height="100" src="{{post.full_url()}}" />
         {% endfor %}
