@@ -22,7 +22,8 @@ def new():
 @login_required
 def destroy():
     logout_user()
-    return redirect(url_for('sessions.new'))
+    # return redirect(url_for('home'))
+    return redirect('/')
 
 
 

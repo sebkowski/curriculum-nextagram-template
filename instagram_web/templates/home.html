@@ -10,7 +10,7 @@
 {% block content %}
 
 
-
+<span>Total amount received: {{total_donation}}</span>
 {% if current_user.is_authenticated %}
     
     {% for user in users %}
@@ -19,10 +19,17 @@
         <a href="/users/{{user.username}}">{{user.username}}</a>
         <img src="http://sebagram.s3.amazonaws.com/{{user.profile_image}}" class="rounded-circle img-thumbnail border border-primary"  style="object-fit:cover;width:45px; height:45px" alt="45x45">
         </div>
+        <div class="row no-gutter">
         {% for post in user.posts %}
-          <img height="100" src="{{post.full_url()}}" style="margin: 5px ; border-radius: 4px;"/>
+          <div class="position-relative">
+          <img height="100" src="{{post.full_url()}}" style=""/>
+          <!-- <div class="position-absolute" style="bottom:0%; right:0%; cursor:pointer" >
+            <img src="http://sebagram.s3.amazonaws.com/donate.png" height="20px">
+          </div> -->
+        </div>
         {% endfor %}
       </div>
+    </div>
     {% endfor %}
     
   

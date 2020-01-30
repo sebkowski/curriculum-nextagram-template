@@ -7,6 +7,9 @@ S3_LOCATION   = 'http://{}.s3.amazonaws.com/'.format(S3_BUCKET)
 
 
 
+
+
+
 class Config(object):
     DEBUG = False
     TESTING = False
