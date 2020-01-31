@@ -8,6 +8,7 @@ from models.user import User
 from models.donate import Donation
 from flask_assets import Environment, Bundle
 from .util.assets import bundles
+from models.helpers.google_oauth import oauth
 
 assets = Environment(app)
 assets.register(bundles)
@@ -17,6 +18,7 @@ app.register_blueprint(users_blueprint, url_prefix="/users")
 app.register_blueprint(posts_blueprint, url_prefix="/posts")
 app.register_blueprint(donations_blueprint, url_prefix="/donations")
 
+oauth.init_app(app)
 
 @app.errorhandler(404)
 def internal_server_error(e):

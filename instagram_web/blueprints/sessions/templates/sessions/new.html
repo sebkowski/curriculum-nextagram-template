@@ -2,6 +2,7 @@
 {% extends "_layout.html" %}
 {% block content %}
 
+
 <form class="p-4 border w-50 mx-auto my-4" action="{{url_for('sessions.create')}}" method='POST'>
     <input type="hidden" name="csrf_token" value='{{csrf_token()}}'/>
    
@@ -14,8 +15,12 @@
         <input type='password' name='user_password' class="form-control" />
     </div>
     
-
-    <button type="submit" class="btn btn-primary">Login</button>
+    <div>
+    <button type="submit" class="btn btn-primary ">Login</button>
+    <a class="btn btn-primary" href="{{url_for('sessions.google_login')}}">Login with Google</a>
+    
+</div>
+    
 </form>
 
 {% endblock %}
