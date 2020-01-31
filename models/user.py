@@ -1,6 +1,7 @@
 from models.base_model import BaseModel
 from werkzeug.security import generate_password_hash
 from flask_login import UserMixin
+from playhouse.hybrid import hybrid_property
 import peewee as pw
 import re 
 
@@ -12,6 +13,11 @@ class User(UserMixin, BaseModel):
     username = pw.CharField(unique=True)
     email = pw.CharField(unique=True )
     profile_image = pw.CharField(unique=False, default='http://sebagram.s3.amazonaws.com/user.png') 
+
+    @hybrid_property
+    def followers(self):
+        return (follower.user for follower in self.followers)
+
 
     def validate(self):
         duplicate_username = User.get_or_none(User.username == self.username)
