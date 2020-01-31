@@ -8,7 +8,7 @@ import re
 
 class Followstate(UserMixin, BaseModel):
 
-    following = pw.ForeignKeyField(User,  backref='following')
-    follower = pw.ForeignKeyField(User, backref='follower')
+    following = pw.ForeignKeyField(User,  backref='follower')
+    follower = pw.ForeignKeyField(User, backref='following')
     
     

@@ -16,9 +16,21 @@ class User(UserMixin, BaseModel):
 
     @hybrid_property
     def followers(self):
-        return (follower.user for follower in self.followers)
-
-
+        return [x.follower for x in self.follower]
+    
+    @hybrid_property
+    def followings(self):
+        return [x.following for x in self.following]
+    
+    @hybrid_property
+    def sum_followers(self):
+        return len(self.followers)
+    
+    @hybrid_property
+    def sum_followings(self):
+        return len(self.followings)
+    
+    @hybrid_property
     def validate(self):
         duplicate_username = User.get_or_none(User.username == self.username)
         duplicate_name = User.get_or_none(User.name == self.name)

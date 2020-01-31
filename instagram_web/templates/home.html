@@ -17,12 +17,17 @@
       <div style="background-color: #C6B9CD; margin-top: 10px">
         <div>
         <a href="/users/{{user.username}}">{{user.username}}</a>
-        <img src="http://sebagram.s3.amazonaws.com/{{user.profile_image}}" class="rounded-circle img-thumbnail border border-primary"  style="object-fit:cover;width:45px; height:45px" alt="45x45">
+        <img src="http://sebagram.s3.amazonaws.com/{{user.profile_image}}" class="rounded-circle img-thumbnail border border-primary"  style="object-fit:cover;height:45px; width:auto" alt="45x45">
+        <a>Followers {{user.sum_followers}}</a>
+        <a>Following {{user.sum_followings}}</a>
+        <a class='mr-auto'>
+          <img src="http://sebagram.s3.amazonaws.com/u1F929.png" class="rounded-circle img-thumbnail  border-primary float-right"  style="object-fit:cover;height:35px; width:auto" alt="45x45">
+        </a>
         </div>
         <div class="row no-gutter">
         {% for post in user.posts %}
           <div class="position-relative">
-          <img height="100" src="{{post.full_url()}}" style=""/>
+          <img height="100" src="{{post.full_url()}}" />
           <!-- <div class="position-absolute" style="bottom:0%; right:0%; cursor:pointer" >
             <img src="http://sebagram.s3.amazonaws.com/donate.png" height="20px">
           </div> -->
