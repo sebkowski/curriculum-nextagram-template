@@ -30,7 +30,7 @@ class User(UserMixin, BaseModel):
     def sum_followings(self):
         return len(self.followings)
     
-    @hybrid_property
+    # @hybrid_property
     def validate(self):
         duplicate_username = User.get_or_none(User.username == self.username)
         duplicate_name = User.get_or_none(User.name == self.name)

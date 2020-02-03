@@ -3,6 +3,7 @@ from peewee import IntegrityError
 from flask_wtf.csrf import CSRFProtect
 from models import *
 from models.user import User
+from models.followers import Followstate
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 from flask_login import LoginManager, current_user, login_required, login_user
@@ -19,6 +20,14 @@ users_blueprint = Blueprint('users',
 @users_blueprint.route('/new', methods=['GET'])
 def new():
     return render_template('users/new.html')
+
+@users_blueprint.route('/follow/<id>')
+def follow(id):
+    follower_id=current_user.id
+    following_id=id
+    s=Followstate(follower_id=follower_id,following_id=following_id)
+    s.save()
+    return redirect('/')
 
 # POST /users/
 @users_blueprint.route('/', methods=['POST'])
