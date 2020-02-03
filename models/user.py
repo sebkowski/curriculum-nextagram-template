@@ -13,6 +13,7 @@ class User(UserMixin, BaseModel):
     username = pw.CharField(unique=True)
     email = pw.CharField(unique=True )
     profile_image = pw.CharField(unique=False, default='http://sebagram.s3.amazonaws.com/user.png') 
+    private = pw.BooleanField(default=False)
 
     @hybrid_property
     def followers(self):
@@ -63,4 +64,8 @@ class User(UserMixin, BaseModel):
         if re.search(email_pattern, self.email) is None:
             self.errors.append('Please enter a valid email')
         else: 
-            self.password=generate_password_hash(self.password)
+            # this is an update, not create
+            if self.id:
+                self.password = self.password
+            else:
+                self.password=generate_password_hash(self.password)

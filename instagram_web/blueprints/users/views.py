@@ -101,8 +101,9 @@ def edit():
 @users_blueprint.route('/edit', methods=['POST'])
 def update():
     email = request.form.get('user_email')
+    profile_private = request.form.get('user_private') or False
 
-    query = User.update(email=email).where(User.id==current_user.id)
+    query = User.update(email=email, private=profile_private).where(User.id==current_user.id)
     if query.execute():
         flash('email updated')
         return render_template('home.html')

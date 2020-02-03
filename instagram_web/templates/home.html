@@ -19,7 +19,7 @@
       <div style="background-color: #C6B9CD; margin-top: 10px">
         <div>
         <a href="/users/{{user.username}}">{{user.username}}</a>
-        <img src="http://sebagram.s3.amazonaws.com/{{user.profile_image}}" class="rounded-circle img-thumbnail border border-primary"  style="object-fit:cover;height:45px; width:" alt="45x45">
+        <img src="http://sebagram.s3.amazonaws.com/{{user.profile_image}}" class="rounded-circle img-thumbnail border border-primary"  style="object-fit:cover;height:45px; width:45px" alt="45x45">
         <a>Followers {{user.sum_followers}}</a>
         <a>Following {{user.sum_followings}}</a>
         {% if user in current_user.followings %}

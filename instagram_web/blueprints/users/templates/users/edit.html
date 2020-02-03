@@ -9,15 +9,15 @@
     <input type="hidden" name="csrf_token" value='{{csrf_token()}}'/>
     <div class="form-group">
         <label for="user_name">Name</label>
-        <input type='text' name='user_name' class="form-control" value="type new name here"  />
+        <input type='text' name='user_name' class="form-control" value="{{current_user.name}}"  />
     </div>
     <div class="form-group">
         <label for="user_username">Username</label>
-        <input type='text' name='user_username' class="form-control" />
+        <input type='text' name='user_username' class="form-control" value="{{current_user.username}}" />
     </div>
     <div class="form-group">
         <label for="user_email">Email</label>
-        <input type='text' name='user_email' class="form-control" placeholder="email@example.com" />
+        <input type='text' name='user_email' class="form-control" value="{{current_user.email}}" />
     </div>
     <div class="form-group">
         <label for="user_password">Password</label>
@@ -25,7 +25,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
-    <input type="checkbox" name="user_private" value="private" > I want to make my profile private<br>
+    <input type="checkbox" name="user_private" {{'checked' if current_user.private else ''}}> Make my profile private<br>
 </form>
 
 <form class="p-4 border w-50 mx-auto my-4" action="{{url_for('users.profile_image')}}" method="POST" enctype="multipart/form-data">
