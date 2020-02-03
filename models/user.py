@@ -1,6 +1,6 @@
 from models.base_model import BaseModel
 from werkzeug.security import generate_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from playhouse.hybrid import hybrid_property
 import peewee as pw
 import re 
@@ -19,16 +19,28 @@ class User(UserMixin, BaseModel):
         return [x.follower for x in self.follower]
     
     @hybrid_property
-    def followings(self):
-        return [x.following for x in self.following]
-    
-    @hybrid_property
     def sum_followers(self):
         return len(self.followers)
     
     @hybrid_property
+    def followings(self):
+        return [x.following for x in self.following]
+    
+    @hybrid_property
     def sum_followings(self):
         return len(self.followings)
+    
+    @hybrid_property
+    def pending_requests(self):
+        from models.followers import Followstate
+        query = Followstate.select().where(Followstate.following_id == self.id, Followstate.approved == False)
+        return [x.follower for x in query]
+
+    @hybrid_property
+    def sum_pending_request(self):
+        return len(self.pending_requests)
+    
+
     
     # @hybrid_property
     def validate(self):

@@ -10,5 +10,6 @@ class Followstate(UserMixin, BaseModel):
 
     following = pw.ForeignKeyField(User,  backref='follower')
     follower = pw.ForeignKeyField(User, backref='following')
+    approved = pw.BooleanField(default=False)
     
     

@@ -10,15 +10,32 @@
 {% block content %}
 <div class="container-fluid" >
     
-    <div class="row no-gutter" >
-    {% for post in user.posts %}
-            <div class="position-relative">
-        <img height="250" src="{{post.full_url()}}" style="margin-top: 15px; background-color: #C6B9CD" />
-        <!-- <div class="position-absolute" style="bottom:0%; right:0%; cursor:pointer" >
-        <img src="http://sebagram.s3.amazonaws.com/donate.png" height="40px" >
-        </div> -->
+    <a>Followers {{user.sum_followers}}</a>
+    <a>Following {{user.sum_followings}}</a>
+    <div>
     </div>
-    {% endfor %}
+    <div class="row no-gutter" >
+        <div class="pending-requests">
+            {% for user in current_user.pending_requests %}
+            
+                {{user.username}}
+                <A href="{{url_for('users.approve', id=user.id)}}">
+                <button >Approve</button>
+            </A>
+            <A href="{{url_for('users.reject', id=user.id)}}">
+                <button >Reject</button>
+            </A>
+            </div>
+          {% endfor %}
+        
+        <div>
+        {% for post in user.posts %}
+        <div class="position-relative">
+            <img height="250" src="{{post.full_url()}}" style="margin-top: 15px; background-color: #C6B9CD" />
+            
+        </div>
+        {% endfor %}
+    </div>
     </div>
 </div>
         

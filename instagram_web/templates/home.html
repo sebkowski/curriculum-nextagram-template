@@ -19,12 +19,18 @@
       <div style="background-color: #C6B9CD; margin-top: 10px">
         <div>
         <a href="/users/{{user.username}}">{{user.username}}</a>
-        <img src="http://sebagram.s3.amazonaws.com/{{user.profile_image}}" class="rounded-circle img-thumbnail border border-primary"  style="object-fit:cover;height:45px; width:auto" alt="45x45">
+        <img src="http://sebagram.s3.amazonaws.com/{{user.profile_image}}" class="rounded-circle img-thumbnail border border-primary"  style="object-fit:cover;height:45px; width:" alt="45x45">
         <a>Followers {{user.sum_followers}}</a>
         <a>Following {{user.sum_followings}}</a>
-        <a class='mr-auto' href="{{url_for('users.follow', id=user.id)}}">
-          <img src="http://sebagram.s3.amazonaws.com/u1F929.png" class="rounded-circle img-thumbnail  border-primary float-right"  style="object-fit:cover;height:35px; width:auto" alt="45x45">
-        </a>
+        {% if user in current_user.followings %}
+          <a class='mr-auto' href="{{url_for('users.unfollow', id=user.id)}}">
+            <img src="http://sebagram.s3.amazonaws.com/u1F645.0.M.png" class="rounded-circle img-thumbnail  border-primary float-right"  style="object-fit:cover;height:35px; width:auto" alt="45x45">
+          </a>
+        {% else %}
+          <a class='mr-auto' href="{{url_for('users.follow', id=user.id)}}">
+            <img src="http://sebagram.s3.amazonaws.com/u1F929.png" class="rounded-circle img-thumbnail  border-primary float-right"  style="object-fit:cover;height:35px; width:auto" alt="45x45">
+          </a>
+        {% endif %}
         </div>
         <div class="row no-gutter">
         {% for post in user.posts %}

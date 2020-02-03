@@ -29,6 +29,29 @@ def follow(id):
     s.save()
     return redirect('/')
 
+@users_blueprint.route('/unfollow/<id>')
+def unfollow(id):
+    query = Followstate.delete().where(Followstate.follower_id == current_user.id, Followstate.following_id == id)
+    if query.execute():
+        flash("Unfollowed!")
+    return redirect('/')
+
+@users_blueprint.route('/approve/<id>')
+def approve(id):
+    user = User.get_by_id(id)
+    follow = Followstate.get_or_none(Followstate.following_id == current_user.id, Followstate.follower_id == id)
+    follow.approved = True
+    follow.save()
+    return redirect(url_for('users.show', username=user.username))
+
+@users_blueprint.route('/reject/<id>')
+def reject(id):
+    user = User.get_by_id(id)
+    follow = Followstate.get_or_none(Followstate.following_id == current_user.id, Followstate.follower_id == id)
+    follow.delete_instance()
+    return redirect(url_for('users.show', username=user.username))
+    
+
 # POST /users/
 @users_blueprint.route('/', methods=['POST'])
 def create():

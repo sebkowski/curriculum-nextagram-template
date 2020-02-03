@@ -1,0 +1,36 @@
+{% extends "_layout.html" %}
+
+
+
+{% block content %}
+<div class="container-fluid" >
+    
+    <a href="">Followers {{user.sum_followers}}</a>
+    <a href="">Following {{user.sum_followings}}</a>
+    <a href="">Request Pending {{user.sum_pending_request}}</a>
+
+    <div class="row no-gutter" >
+
+
+
+
+    {% for post in user.posts %}
+            <div class="position-relative">
+        <img height="250" src="{{post.full_url()}}" style="margin-top: 15px; background-color: #C6B9CD" />
+       
+    </div>
+    {% endfor %}
+    </div>
+</div>
+        
+       
+
+    
+    
+{% endblock %}
+        
+   
+    
+
+
+
