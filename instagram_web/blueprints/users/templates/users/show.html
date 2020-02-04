@@ -40,10 +40,15 @@
           {% endfor %}
         
         <div>
-        {% for post in user.posts %}
-        <div class="position-relative">
-            <img height="250" src="{{post.full_url()}}" style="margin-top: 15px; background-color: #C6B9CD" />
-            
+        {% for post in user.posts|sort(attribute="created_at",reverse=True) %}
+        <div class="card" style="width:400px; margin-right:auto">
+            <img class="card-img-top" src="{{post.full_url()}}" alt="{{user}}" />
+            <div class="card-body">
+                <h4 class="card-tittle">Posted jan 1st 2020</h4>
+                <p class="card-text">awesome</p>
+                <a href="#" class="btn btn-primary"> see profile</a>
+
+            </div>
         </div>
         {% endfor %}
     </div>

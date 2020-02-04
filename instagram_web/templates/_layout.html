@@ -34,17 +34,17 @@
     </button> -->
     <!-- <div class="collapse navbar-collapse" id="navbarNavDropdown" > -->
       
-      <ul class="navbar-nav ml-auto">
+      <nav class="navbar-nav ml-auto">
        
         
         {% if current_user.is_authenticated %}
         <a href="{{ url_for('posts.new')}}">
-        <img src="http://sebagram.s3.amazonaws.com/u1F933.0.png" class="fixed-top rounded-circle img-thumbnail border border-primary mx-auto mt-2" style="width:130px; border-radius: 3px;" >
+        <img src="http://sebagram.s3.amazonaws.com/u1F933.0.png" class="fixed-top rounded-circle img-thumbnail border border-primary mx-auto mt-2" style="width:130px; border-radius: 3px" alt="post logo" >
         </a>
         <li class="nav-item dropdown" >
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
             {{current_user.username}}
-            <img src="http://sebagram.s3.amazonaws.com/{{current_user.profile_image}}" class="rounded-circle img-thumbnail border border-primary"  style="width:45px" position="fixed' alt="45x45">
+            <img src="http://sebagram.s3.amazonaws.com/{{current_user.profile_image}}" class="rounded-circle img-thumbnail border border-primary"  style="width:45px" position="fixed" alt="{{username}}">
             
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color:#D7263D;">
@@ -83,11 +83,13 @@
         {% endif %}
         <div class="position-absolute" style="bottom:0%; right:0%; cursor:pointer" >
           <a href="{{url_for('donations.new')}}">
-          <img src="http://sebagram.s3.amazonaws.com/donate.png" height="20px" >
-          
+          <div>
+            <span>Total amount received: {{total_donation}}</span>
+          <img src="http://sebagram.s3.amazonaws.com/donate.png" height="20px" alt="donatelogo" >
+        </div>
         </a>
         </div>
-      </ul>
+      </nav>
     <!-- </div> -->
   </nav>
 
